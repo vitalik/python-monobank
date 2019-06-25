@@ -1,0 +1,21 @@
+# python-monobank
+
+Python client for Monobank API
+
+
+Usage:
+
+1) Request your token at https://api.monobank.ua/
+
+2) use token to initialize client:
+
+```
+  token = 'xxxxxxxxxxxxxxx'
+
+  mono = Monobank(token)
+  client_info = mono.personal_clientinfo()
+  print(client_info)
+```
+
+
+WIP stay tuned
