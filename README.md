@@ -1,6 +1,6 @@
 # python-monobank
 
-Python client for Monobank API
+Python client for Monobank API (https://api.monobank.ua/docs/)
 
 
 Usage:
