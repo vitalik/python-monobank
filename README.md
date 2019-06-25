@@ -2,8 +2,14 @@
 
 Python client for Monobank API (https://api.monobank.ua/docs/)
 
+## Installation
 
-Usage:
+```
+pip install monobank
+```
+
+
+## Usage
 
 1) Request your token at https://api.monobank.ua/
 
