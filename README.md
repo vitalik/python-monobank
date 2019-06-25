@@ -7,7 +7,7 @@ Usage:
 
 1) Request your token at https://api.monobank.ua/
 
-2) use token to initialize client:
+2) Use that token to initialize client:
 
 ```
   token = 'xxxxxxxxxxxxxxx'
