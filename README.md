@@ -30,6 +30,7 @@ pip install monobank
 Get currencies
 
 ```
+>>> mono.bank_currency()
 [
  {'currencyCodeA': 840,
   'currencyCodeB': 980,
@@ -47,18 +48,20 @@ Get currencies
 Get client info
 
 ```
->>> mono
-{'accounts': [
+>>> mono.personal_clientinfo()
+{
+  'name': 'Dmitriy Dubilet'
+  'accounts': [
     {
       'id': 'EnF45gsdfse-ndf'
       'balance': 100000000,
       'cashbackType': 'UAH',
       'creditLimit': 100000000,
       'currencyCode': 980,
-               
       }
   ],
- 'name': 'Dmitriy Dubilet'}
+}
+
 ```
 
 
