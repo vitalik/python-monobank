@@ -9,7 +9,9 @@ pip install monobank
 ```
 
 
-## Usage
+# Usage
+
+## Personal api
 
 1) Request your token at https://api.monobank.ua/
 
@@ -23,5 +25,51 @@ pip install monobank
   print(client_info)
 ```
 
+### Methods
 
-WIP stay tuned
+Get currencies
+
+```
+[
+ {'currencyCodeA': 840,
+  'currencyCodeB': 980,
+  'date': 1561686005,
+  'rateBuy': 25.911,
+  'rateSell': 26.2357},
+ {'currencyCodeA': 978,
+  'currencyCodeB': 980,
+  'date': 1561686005,
+  'rateBuy': 29.111,
+  'rateSell': 29.7513},
+  ...
+```
+
+Get client info
+
+```
+>>> mono
+{'accounts': [
+    {
+      'id': 'EnF45gsdfse-ndf'
+      'balance': 100000000,
+      'cashbackType': 'UAH',
+      'creditLimit': 100000000,
+      'currencyCode': 980,
+               
+      }
+  ],
+ 'name': 'Dmitriy Dubilet'}
+```
+
+
+Get statements
+```
+TODO
+```
+
+
+
+
+## Corporatre API
+
+...still negotiating...
