@@ -8,6 +8,10 @@ class MonobankError(Exception):
     pass
 
 
+class MonobankTooManyRequests(Exception):
+    pass
+
+
 class Monobank(object):
     def __init__(self, token):
         self.token = token
@@ -21,11 +25,15 @@ class Monobank(object):
     def make_request(self, path):
         headers = self._get_headers()
         response = requests.get(ENDPOINT + path, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        
+        if response.status_code == 429:
+            raise MonobankTooManyRequests("Too many requests")
+        
         data = response.json()
-        if response.status_code != 200:
-            message = data.get('errorDescription', str(data))
-            raise MonobankError(message)
-        return data
+        message = data.get('errorDescription', str(data))
+        raise MonobankError(f'{response.status_code} {message}')
 
     def bank_currency(self):
         return self.make_request('/bank/currency')
