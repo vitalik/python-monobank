@@ -42,7 +42,7 @@ class Monobank(object):
         return self.make_request('/personal/client-info')
     
     def personal_statement(self, account, date_from, date_to):
-        assert date_from >= date_to
+        assert date_from <= date_to
         t_from, t_to = to_timestamp(date_from), to_timestamp(date_to)
         url = '/personal/statement/%s/%s/%s' % (account, t_from, t_to)
         return self.make_request(url)

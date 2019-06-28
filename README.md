@@ -53,7 +53,7 @@ Get client info
   'name': 'Dmitriy Dubilet'
   'accounts': [
     {
-      'id': 'EnF45gsdfse-ndf'
+      'id': 'accidxxxxx'
       'balance': 100000000,
       'cashbackType': 'UAH',
       'creditLimit': 100000000,
@@ -67,7 +67,23 @@ Get client info
 
 Get statements
 ```
-TODO
+>>> mono.personal_statement('accidxxxxx', date(2019,1,1), date(2019,1,30))
+[
+  {
+    'id': 'iZDPhf8v32Qass',
+    'amount': -127603,
+    'balance': 99872397,
+    'cashbackAmount': 2552,
+    'commissionRate': 0,
+    'currencyCode': 978,
+    'description': 'Smarass club',
+    'hold': True,
+    'mcc': 5411,
+    'operationAmount': 4289,
+    'time': 1561658263
+  },
+  ...
+]
 ```
 
 
