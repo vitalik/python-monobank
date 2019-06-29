@@ -8,7 +8,7 @@ class MonobankError(Exception):
     pass
 
 
-class MonobankTooManyRequests(Exception):
+class MonobankTooManyRequests(MonobankError):
     pass
 
 
