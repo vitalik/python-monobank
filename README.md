@@ -18,11 +18,12 @@ pip install monobank
 2) Use that token to initialize client:
 
 ```
+  import monobank
   token = 'xxxxxxxxxxxxxxx'
 
-  mono = Monobank(token)
-  client_info = mono.personal_clientinfo()
-  print(client_info)
+  mono = monobank.Client(token)
+  user_info = mono.personal_clientinfo()
+  print(user_info)
 ```
 
 ### Methods
@@ -92,3 +93,7 @@ Get statements
 ## Corporatre API
 
 ...still negotiating...
+
+## Handling Errors
+
+TODO

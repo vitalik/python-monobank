@@ -1,1 +1,2 @@
-from .client import Monobank
+from .client import Client, CorporateClient
+from .errors import Error, TooManyRequests
