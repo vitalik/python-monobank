@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "monobank"
-version = "0.2.1"
+version = "0.2.2"
 description = "Monobank.ua API implementation"
+readme = "README.md"
+homepage = "https://github.com/vitalik/python-monobank"
 authors = ["Vitaliy Kucheriavyi <ppr.vitaly@gmail.com>"]
+
 
 [tool.poetry.dependencies]
 python = "^3.6"
