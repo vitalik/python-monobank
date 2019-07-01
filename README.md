@@ -77,7 +77,7 @@ Get statements
     'cashbackAmount': 2552,
     'commissionRate': 0,
     'currencyCode': 978,
-    'description': 'Smarass club',
+    'description': 'Smartass club',
     'hold': True,
     'mcc': 5411,
     'operationAmount': 4289,
