@@ -89,6 +89,11 @@ Get statements
 ]
 ```
 
+You can as well pass datetime objects
+```python
+>>> mono.get_statements('accidxxxxx', datetime(2019,1,1,11,15), datetime(2019,1,2,11,15))
+```
+
 
 
 
@@ -141,6 +146,11 @@ print(request)
 
 You should save tokenRequestId to database, and then give user the link acceptUrl
 
+Note: To be notified about user acceptance you can use web callback:
+
+```python
+monobank.access_request('p', private_key, callback_url='https://yourserver.com/callback/')
+```
 
 #### 2) Check if user accepted
 
