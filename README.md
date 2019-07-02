@@ -19,7 +19,7 @@ pip install monobank
 
 2) Use that token to initialize client:
 
-```
+```python
   import monobank
   token = 'xxxxxxxxxxxxxxx'
 
@@ -32,7 +32,7 @@ pip install monobank
 
 Get currencies
 
-```
+```python
 >>> mono.bank_currency()
 [
  {'currencyCodeA': 840,
@@ -50,7 +50,7 @@ Get currencies
 
 Get client info
 
-```
+```python
 >>> mono.personal_clientinfo()
 {
   'name': 'Dmitriy Dubilet'
@@ -69,7 +69,7 @@ Get client info
 
 
 Get statements
-```
+```python
 >>> mono.personal_statement('accidxxxxx', date(2019,1,1), date(2019,1,30))
 [
   {
@@ -129,12 +129,12 @@ Once your app got approved by Monobank team you can start using corporate API:
 
 #### 1) Create monobank user access request
 
-```
+```python
 private_key = '/path/to/your/priv.key'
 request = monobank.access_request('p', private_key)
 ```
 If all fine you should recive the following:
-```
+```python
 print(request)
 {'tokenRequestId': 'abcdefg_Wg', 'acceptUrl': 'https://mbnk.app/auth/abcdefg_Wg'}
 ```
@@ -147,7 +147,7 @@ You should save tokenRequestId to database, and then give user the link acceptUr
 You can check if user accepted access request like this:
 
 
-```
+```python
 request_token = 'abcdefg_Wg'  # the token from access_request result
 private_key = '/path/to/your/priv.key'
 
@@ -163,15 +163,15 @@ mono.check()  # returns True if user accepted, False if not
 
 Once user accepts your access-request, you can start using all the methods same ways as Public API
 
-```
+```python
 mono.personal_statement(....)
 ```
 
 ## Handling Errors
 
-If you use Personal API you may encounter "Too Many Requests" error. To properly catch in and retry use monobank.TooManyRequests exception
+If you use Personal API you may encounter "Too Many Requests" error. To properly catch it and retry - use *monobank.TooManyRequests* exception
 
-```
+```python
 try:
     mono.personal_statement(....)
 except monobank.TooManyRequest:
