@@ -1,10 +1,8 @@
-import requests
 import monobank
+from datetime import datetime
 from monobank.utils import to_timestamp
-
-
-ENDPOINT = 'https://api.monobank.ua'
-UAGENT = 'python-monobank (https://github.com/vitalik/python-monobank, contact: ppr.vitaly@gmail.com)'
+from monobank.signature import SignKey
+from monobank.transport import api_request
 
 
 class ClientBase(object):
@@ -13,19 +11,8 @@ class ClientBase(object):
         raise NotImplementedError('Please implement _get_headers')
 
     def make_request(self, path):
-        url = ENDPOINT + path
-        headers = self._get_headers(url)
-        headers['User-Agent'] = UAGENT
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            return response.json()
-        
-        if response.status_code == 429:
-            raise monobank.TooManyRequests("Too many requests", response)
-        
-        data = response.json()
-        message = data.get('errorDescription', str(data))
-        raise monobank.Error(message, response)
+        headers = self._get_headers(path)
+        return api_request('GET', path, headers=headers)
 
     def bank_currency(self):
         return self.make_request('/bank/currency')
@@ -55,11 +42,19 @@ class Client(ClientBase):
 class CorporateClient(ClientBase):
     "Corporate API"
 
-    def __init__(self, request_id, app_key, secret_key):
-        pass  # WIP
+    def __init__(self, request_id, private_key):
+        self.request_id = request_id
+        self.key = SignKey(private_key)
         
     def _get_headers(self, url):
-        pass  # WIP
+        headers = {
+            'X-Key-Id': self.key.key_id(),
+            'X-Time': str(to_timestamp(datetime.now())),
+            'X-Request-Id': self.request_id,
+        }
+        data = headers['X-Time'] + headers['X-Request-Id'] + url
+        headers['X-Sign'] = self.key.sign(data)
+        return headers
     
     def check(self):
         "Checks if user approved access request"
@@ -70,3 +65,19 @@ class CorporateClient(ClientBase):
             if e.response.status_code == 401:
                 return False
             raise
+
+
+def access_request(permissions, private_key, callback_url=None):
+    "Creates an access request for corporate api user"
+    key = SignKey(private_key)
+    headers = {
+        'X-Key-Id': key.key_id(),
+        'X-Time': str(to_timestamp(datetime.now())),
+        'X-Permissions': permissions,
+    }
+    if callback_url:
+        headers['X-Callback'] = callback_url
+    path = '/personal/auth/request'
+    sign_str = headers['X-Time'] + headers['X-Permissions'] + path
+    headers['X-Sign'] = key.sign(sign_str)
+    return api_request('POST', path, headers=headers)

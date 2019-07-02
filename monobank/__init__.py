@@ -1,2 +1,2 @@
-from .client import Client, CorporateClient
+from .client import Client, CorporateClient, access_request
 from .errors import Error, TooManyRequests
