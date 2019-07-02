@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "monobank"
-version = "0.4.0"
+version = "0.4.1"
 description = "Monobank.ua API implementation"
 readme = "README.md"
 homepage = "https://github.com/vitalik/python-monobank"

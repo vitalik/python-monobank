@@ -10,7 +10,7 @@ def api_request(method, path, **kwargs):
     headers = kwargs.pop('headers')
     headers['User-Agent'] = UAGENT
     url = ENDPOINT + path
-    print(method, url, headers)
+    # print(method, url, headers)
     response = requests.request(method, url, headers=headers, **kwargs)
     
     if response.status_code == 200:
