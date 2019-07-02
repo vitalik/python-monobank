@@ -94,8 +94,90 @@ Get statements
 
 ## Corporatre API
 
-...still negotiating...
+Documentation is here - https://api.monobank.ua/docs/corporate.html
+
+Corporate API have the same methods as Public API, but it does not have rate limitation, and it is a recomended way if you are handling data for commercial use (or just storing lot of personal data).
+
+### Getting access
+
+#### 1) Generate private key
+
+```
+openssl ecparam -genkey -name secp256k1 -rand /dev/urandom -out priv.key
+```
+
+This will output file **priv.key** 
+
+**Warning**: do not share it with anyone, do not store it in public git repositories
+
+#### 2) Generate public key
+
+```
+openssl ec -in priv.key  -pubout -out pub.key
+```
+
+This will output file **pub.key** 
+
+#### 3) Request API access 
+Send an email to api@monobank.ua - describe your project, and attach **pub.key** (!!! NOT priv.key !!!)
+
+
+### Requesting permission from monobank user
+
+Once your app got approved by Monobank team you can start using corporate API:
+
+
+#### 1) Create monobank user access request
+
+```
+private_key = '/path/to/your/priv.key'
+request = monobank.access_request('p', private_key)
+```
+If all fine you should recive the following:
+```
+print(request)
+{'tokenRequestId': 'abcdefg_Wg', 'acceptUrl': 'https://mbnk.app/auth/abcdefg_Wg'}
+```
+
+You should save tokenRequestId to database, and then give user the link acceptUrl
+
+
+#### 2) Check if user accepted
+
+You can check if user accepted access request like this:
+
+
+```
+request_token = 'abcdefg_Wg'  # the token from access_request result
+private_key = '/path/to/your/priv.key'
+
+mono = monobank.CorporateClient(request_token, private_key)
+
+
+mono.check()  # returns True if user accepted, False if not
+
+```
+
+
+#### 3) Use methods
+
+Once user accepts your access-request, you can start using all the methods same ways as Public API
+
+```
+mono.personal_statement(....)
+```
 
 ## Handling Errors
 
-TODO
+If you use Personal API you may encounter "Too Many Requests" error. To properly catch in and retry use monobank.TooManyRequests exception
+
+```
+try:
+    mono.personal_statement(....)
+except monobank.TooManyRequest:
+    time.sleep(1)
+    # try again:
+    mono.personal_statement(....)
+```
+
+You can use ratelimiter library (like https://pypi.org/project/ratelimiter/ ) to download all transactions
