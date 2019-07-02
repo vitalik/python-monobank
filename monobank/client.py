@@ -14,13 +14,13 @@ class ClientBase(object):
         headers = self._get_headers(path)
         return api_request('GET', path, headers=headers)
 
-    def bank_currency(self):
+    def get_currency(self):
         return self.make_request('/bank/currency')
 
-    def personal_clientinfo(self):
+    def get_client_info(self):
         return self.make_request('/personal/client-info')
     
-    def personal_statement(self, account, date_from, date_to):
+    def get_statements(self, account, date_from, date_to):
         assert date_from <= date_to
         t_from, t_to = to_timestamp(date_from), to_timestamp(date_to)
         url = f'/personal/statement/{account}/{t_from}/{t_to}'

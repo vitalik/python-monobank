@@ -24,7 +24,7 @@ pip install monobank
   token = 'xxxxxxxxxxxxxxx'
 
   mono = monobank.Client(token)
-  user_info = mono.personal_clientinfo()
+  user_info = mono.get_client_info()
   print(user_info)
 ```
 
@@ -33,7 +33,7 @@ pip install monobank
 Get currencies
 
 ```python
->>> mono.bank_currency()
+>>> mono.get_currency()
 [
  {'currencyCodeA': 840,
   'currencyCodeB': 980,
@@ -51,7 +51,7 @@ Get currencies
 Get client info
 
 ```python
->>> mono.personal_clientinfo()
+>>> mono.get_client_info()
 {
   'name': 'Dmitriy Dubilet'
   'accounts': [
@@ -70,7 +70,7 @@ Get client info
 
 Get statements
 ```python
->>> mono.personal_statement('accidxxxxx', date(2019,1,1), date(2019,1,30))
+>>> mono.get_statements('accidxxxxx', date(2019,1,1), date(2019,1,30))
 [
   {
     'id': 'iZDPhf8v32Qass',
@@ -164,7 +164,7 @@ mono.check()  # returns True if user accepted, False if not
 Once user accepts your access-request, you can start using all the methods same ways as Public API
 
 ```python
-mono.personal_statement(....)
+mono.get_statements(....)
 ```
 
 ## Handling Errors
@@ -173,11 +173,11 @@ If you use Personal API you may encounter "Too Many Requests" error. To properly
 
 ```python
 try:
-    mono.personal_statement(....)
+    mono.get_statements(....)
 except monobank.TooManyRequest:
     time.sleep(1)
     # try again:
-    mono.personal_statement(....)
+    mono.get_statements(....)
 ```
 
 You can use ratelimiter library (like https://pypi.org/project/ratelimiter/ ) to download all transactions
