@@ -136,7 +136,7 @@ Once your app got approved by Monobank team you can start using corporate API:
 
 ```python
 private_key = '/path/to/your/priv.key'
-request = monobank.access_request('p', private_key)
+request = monobank.access_request('ps', private_key)
 ```
 If all fine you should recive the following:
 ```python
@@ -149,7 +149,7 @@ You should save tokenRequestId to database, and then give user the link acceptUr
 Note: To be notified about user acceptance you can use web callback:
 
 ```python
-monobank.access_request('p', private_key, callback_url='https://yourserver.com/callback/')
+monobank.access_request('ps', private_key, callback_url='https://yourserver.com/callback/')
 ```
 
 #### 2) Check if user accepted
