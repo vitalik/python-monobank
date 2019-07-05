@@ -14,6 +14,8 @@ def api_request(method, path, **kwargs):
     response = requests.request(method, url, headers=headers, **kwargs)
     
     if response.status_code == 200:
+        if not response.content:  # can be just empty an response, but it's fine
+            return None
         return response.json()
     
     if response.status_code == 429:
