@@ -10,21 +10,26 @@ class ClientBase(object):
     def _get_headers(self, url):
         raise NotImplementedError('Please implement _get_headers')
 
-    def make_request(self, path):
+    def make_request(self, method, path, **kwargs):
         headers = self._get_headers(path)
-        return api_request('GET', path, headers=headers)
+        return api_request(method, path, headers=headers, **kwargs)
 
     def get_currency(self):
-        return self.make_request('/bank/currency')
+        return self.make_request('GET', '/bank/currency')
 
     def get_client_info(self):
-        return self.make_request('/personal/client-info')
+        return self.make_request('GET', '/personal/client-info')
     
     def get_statements(self, account, date_from, date_to):
         assert date_from <= date_to
         t_from, t_to = to_timestamp(date_from), to_timestamp(date_to)
         url = f'/personal/statement/{account}/{t_from}/{t_to}'
-        return self.make_request(url)
+        return self.make_request('GET', url)
+    
+    def create_webhook(self, url):
+        return self.make_request('POST', '/personal/webhook', data={
+            'webHookUrl': url,
+        })
 
 
 class Client(ClientBase):
