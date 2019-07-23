@@ -184,7 +184,7 @@ If you use Personal API you may encounter "Too Many Requests" error. To properly
 ```python
 try:
     mono.get_statements(....)
-except monobank.TooManyRequest:
+except monobank.TooManyRequests:
     time.sleep(1)
     # try again:
     mono.get_statements(....)
