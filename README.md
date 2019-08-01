@@ -1,6 +1,6 @@
 # python-monobank
 
-![GitHub issues](https://img.shields.io/github/issues/vitalik/python-monobank)
+![GitHub-issues](https://img.shields.io/github/issues/vitalik/python-monobank)
 
 ![python-monobank](https://raw.githubusercontent.com/vitalik/python-monobank/master/docs/logo.png)
 
