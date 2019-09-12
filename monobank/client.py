@@ -27,7 +27,7 @@ class ClientBase(object):
         return self.make_request('GET', url)
     
     def create_webhook(self, url):
-        return self.make_request('POST', '/personal/webhook', data={
+        return self.make_request('POST', '/personal/webhook', json={
             'webHookUrl': url,
         })
 
