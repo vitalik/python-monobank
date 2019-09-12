@@ -1,5 +1,7 @@
 # python-monobank
 
+![GitHub-issues](https://img.shields.io/github/issues/vitalik/python-monobank)
+
 ![python-monobank](https://raw.githubusercontent.com/vitalik/python-monobank/master/docs/logo.png)
 
 Python client for Monobank API (https://api.monobank.ua/docs/)
@@ -189,7 +191,7 @@ If you use Personal API you may encounter "Too Many Requests" error. To properly
 ```python
 try:
     mono.get_statements(....)
-except monobank.TooManyRequest:
+except monobank.TooManyRequests:
     time.sleep(1)
     # try again:
     mono.get_statements(....)
