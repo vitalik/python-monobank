@@ -95,6 +95,11 @@ You can as well pass datetime objects
 ```
 
 
+Create a Webhook
+```python
+>>> mono.create_webhook('https://myserver.com/hookpath')
+```
+
 
 
 ## Corporatre API
