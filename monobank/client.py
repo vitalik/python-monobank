@@ -1,5 +1,5 @@
 import monobank
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from monobank.utils import to_timestamp
 from monobank.signature import SignKey
 from monobank.transport import api_request
@@ -20,9 +20,17 @@ class ClientBase(object):
     def get_client_info(self):
         return self.make_request('GET', '/personal/client-info')
     
-    def get_statements(self, account, date_from, date_to):
-        assert date_from <= date_to
+    def get_statements(self, account, date_from, date_to=None):
+        if date_to is None:
+            date_to = date_from
+        assert date_from <= date_to, "date_from must be <= date_to"
+        if isinstance(date_to, date):
+            # dates converted to timestamps of the same day but 00:00
+            # which is not very practical
+            # in that case we moving 24 hours ahead to include desired date:
+            date_to += timedelta(days=1)
         t_from, t_to = to_timestamp(date_from), to_timestamp(date_to)
+        
         url = f'/personal/statement/{account}/{t_from}/{t_to}'
         return self.make_request('GET', url)
     
