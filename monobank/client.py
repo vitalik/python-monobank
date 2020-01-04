@@ -64,7 +64,7 @@ class CorporateClient(ClientBase):
     def check(self):
         "Checks if user approved access request"
         try:
-            self.make_request('/personal/auth/request')
+            self.make_request('GET', '/personal/auth/request')
             return True
         except monobank.Error as e:
             if e.response.status_code == 401:
